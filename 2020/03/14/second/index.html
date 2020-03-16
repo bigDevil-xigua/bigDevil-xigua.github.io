@@ -5,15 +5,17 @@
   
 
   
-  <title>西瓜田</title>
+  <title>关于我 | 西瓜田</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习前端知识">
-<meta property="og:type" content="website">
-<meta property="og:title" content="西瓜田">
-<meta property="og:url" content="https://bigdevil-xigua-91.github.io/index.html">
+  <meta name="description" content="14年毕业之后一直从事前端开发的工作，大大小小，多多少少，实打实算在三家公司工作过。第一份工作是校招，面试的时候主要问问在学校有没有做过什么软件相关的项目，简单介绍介绍。问问组织过什么活动之类的问题，主要可能没有啥工作经验，只能通过在学校的一些表现和成绩来判断一下你的能力。当时刚毕业不是很懂如何找工作，怎样选择，所以收到offer之后就去了。第一份工作做了快两年，认识好多和自己一样刚毕业的小伙伴，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于我">
+<meta property="og:url" content="https://bigdevil-xigua-91.github.io/2020/03/14/second/index.html">
 <meta property="og:site_name" content="西瓜田">
-<meta property="og:description" content="学习前端知识">
+<meta property="og:description" content="14年毕业之后一直从事前端开发的工作，大大小小，多多少少，实打实算在三家公司工作过。第一份工作是校招，面试的时候主要问问在学校有没有做过什么软件相关的项目，简单介绍介绍。问问组织过什么活动之类的问题，主要可能没有啥工作经验，只能通过在学校的一些表现和成绩来判断一下你的能力。当时刚毕业不是很懂如何找工作，怎样选择，所以收到offer之后就去了。第一份工作做了快两年，认识好多和自己一样刚毕业的小伙伴，">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-14T12:42:44.000Z">
+<meta property="article:modified_time" content="2020-03-14T13:52:43.000Z">
 <meta property="article:author" content="黄小云">
 <meta name="twitter:card" content="summary">
   
@@ -64,96 +66,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-third" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/14/third/" class="article-date">
-  <time datetime="2020-03-14T13:58:56.000Z" itemprop="datePublished">2020-03-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/14/third/">js你必须知道的事</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1-原型与原型链，构造函数"><a href="#1-原型与原型链，构造函数" class="headerlink" title="1.原型与原型链，构造函数"></a>1.原型与原型链，构造函数</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><pre><code>函数（简单的说就是重复执行的代码块；只定义一次，但可能被执行或调用任意次）
-构造函数（通过  new 函数名    来实例化对象的函数叫构造函数）</code></pre><ul>
-<li><p>任何的函数都可以作为构造函数存在。之所以有构造函数与普通函数之分，主要从功能上进行区别的.构造函数的主要 功能为。</p>
-</li>
-<li><p>创建方式和普通函数没有区别，不同的是构造函数习惯上首字母大写。另外就是调用方式的不同，普通函数是直接调用，而构造函数需要使用new关键字来调用。</p>
-</li>
-<li><p>new 申请内存, 创建对象,当调用new时，后台会隐式执行new Object()创建对象。所以，通过new创建的字符串、数字是引用类型，而是非值类型。</p>
-<h4 id="new操作符具体做了什么"><a href="#new操作符具体做了什么" class="headerlink" title="new操作符具体做了什么"></a>new操作符具体做了什么</h4></li>
-<li><p>1、创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。</p>
-</li>
-<li><p>2、属性和方法被加入到 this 引用的对象中。</p>
-</li>
-<li><p>3、新创建的对象由 this 所引用，并且最后隐式的返回 this 。</p>
-<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>与大部分面向对象(OOP)语言不同，ES6之前并没有引入类（class）的概念，JavaScript并非通过类而是直接通过构造函数来创建实例。每创建一个实例，就会创建一遍属性和方法，为什么不把方法和属性单独放到一个地方，并让所有的实例都可以访问到呢?这就需要原型(prototype)</p>
-<ul>
-<li>原型是一个对象，其他对象可以通过它实现属性继承</li>
-<li>在JavaScript中，每当定义一个函数数据类型(普通函数、类)时候，都会天生自带一个prototype属性，这个属性指向函数的原型对象，并且这个属性是一个对象数据类型的值。原型对象就相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象，我们可以将对象中共有的内容，统一设置到原型对象中</li>
-<li>prototype是函数才有的属性</li>
-<li>_proto_是每个对象都有的属性  </li>
-<li>JavaScript 的对象中都包含了一个[[Prototype]]内部属性，这个属性所对应的就是该对象的原型。[[Prototype]]作为对象的内部属性，是不能被直接访问的。所以为了方便查看一个对象的原型，某些浏览器中提供了<strong>proto</strong>这个非标准（不是所有浏览器都支持）的访问器（ECMA 引入了标准对象原型访问器Object.getPrototype(object)）。</li>
-<li>_proto_的指向取决于对象创建时的实现方式<br>. var a ={}(子面量方式 var a = new Object()) a._proto_指向 function Object 的prototype<br>. var A = function(){}<br> var a = new A()<br> a._proto_指向 function A的prototype<br>. var a ={} var b = Object.create(a) b._proto_指向 a (使用现有的对象来提供新创建的对象的proto)</li>
-<li>new Object() 通过构造函数来创建对象, 添加的属性是在自身实例下。<br>Object.create() es6创建对象的另一种方式，可以理解为继承一个对象, 添加的属性是在原型下<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3></li>
-<li>在JavaScript中万物都是对象，对象和对象之间也有关系，并不是孤立存在的</li>
-<li>因为每个对象和原型都有原型，对象的原型指向对象的父，而父的原型又指向父的父,最终指向null，这种原型层层连接起来的就构成了原型链<br>var A = function(){}<br>var a = new A();<br>a.<em>proto</em> 指向 A.prototype<br>A.prototype.<em>proto</em> 指向 Object.prototype<br>Object.prototype._proto_指向null</li>
-</ul>
-</li>
-<li><p>当我们访问对象的一个属性或方法时，它会先在对象自身中寻找，如果有则直接使用，如果没有则会去原型对象中寻找，如果找到则直接使用。如果没有则去原型的原型中寻找,直到找到Object对象的原型，Object对象的原型没有原型，如果在Object原型中依然没有找到，则返回undefined。</p>
-</li>
-</ul>
-<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<h2 id="2-this的理解"><a href="#2-this的理解" class="headerlink" title="2.this的理解"></a>2.this的理解</h2><ul>
-<li>this的指向在函数定义的时候是确定不了的，只有函数执行的时候才能确定this到底指向谁</li>
-<li>如果一个函数中有this，但是它没有被上一级的对象所调用，那么this指向的就是window(在严格模式下，this 是未定义的,函数没有绑定到This上(undefined))（作为函数调用，指向全局 window）</li>
-<li>如果一个函数中有this，最终这个函数有被上一级的对象所调用，那么this指向的就是上一级的对象.（作为对象调用时，指向该对象）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> user = <span class="string">"12"</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.user); <span class="comment">//undefined</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">//Window</span></span><br><span class="line">&#125;</span><br><span class="line"> a();<span class="comment">// == window.a();</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="keyword">var</span> o = &#123;</span><br><span class="line">  user:<span class="string">"12"</span>,</span><br><span class="line">   fn:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.user);  <span class="comment">//12</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> o.fn();<span class="comment">//== window.o.fn()</span></span><br></pre></td></tr></table></figure></li>
-<li>如果一个函数中有this，这个函数中包含多个对象，尽管这个函数是被最外层的对象所调用，this指向的也只是它上一级的对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">      a:<span class="number">10</span>,</span><br><span class="line">      b:&#123;</span><br><span class="line">        <span class="comment">// a:12,</span></span><br><span class="line">        fn:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="keyword">this</span>.a); <span class="comment">//undefined</span></span><br><span class="line">       &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   o.b.fn();</span><br></pre></td></tr></table></figure>
-<ul>
-<li>this永远指向的是最后调用它的对象，也就是看它执行的时候是谁调用的<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">     a:<span class="number">10</span>,</span><br><span class="line">     b:&#123;</span><br><span class="line">       a:<span class="number">12</span>,</span><br><span class="line">       fn:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="keyword">this</span>.a); <span class="comment">//undefined</span></span><br><span class="line">          <span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">//window</span></span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br><span class="line"><span class="keyword">var</span> j = o.b.fn;</span><br><span class="line">j();</span><br></pre></td></tr></table></figure></li>
-<li>作为构造函数调用 var b = new Fun(); // this 指向当前实例对象</li>
-<li>类似 call() 和 apply() 方法可以将 this 引用到任何对象。（obj.b.apply(object, []); // this 指向当前的 object</li>
-<li>es6 箭头函数不会创建自己的this，它只会从自己的作用域链的上一层继承this。箭头函数导致 this 总是指向函数定义生效时所在的对象。）<h2 id="3-深拷贝与浅拷贝-赋值"><a href="#3-深拷贝与浅拷贝-赋值" class="headerlink" title="3.深拷贝与浅拷贝,赋值"></a>3.深拷贝与浅拷贝,赋值</h2><h4 id="数据分为基本数据类型-String-Number-Boolean-Null-Undefined，Symbol"><a href="#数据分为基本数据类型-String-Number-Boolean-Null-Undefined，Symbol" class="headerlink" title="数据分为基本数据类型(String, Number, Boolean, Null, Undefined，Symbol)"></a>数据分为基本数据类型(String, Number, Boolean, Null, Undefined，Symbol)</h4>Symbol S6 中新添加的数据类型<br>Symbol 本质上是一种唯一标识符，可用作对象的唯一属性名，这样其他人就不会改写或覆盖你设置的属性值。<br>Symbol 数据类型的特点是唯一性，即使是用同一个变量生成的值也不相等。<h4 id="对象数据类型-object、array、function"><a href="#对象数据类型-object、array、function" class="headerlink" title="对象数据类型(object、array、function)"></a>对象数据类型(object、array、function)</h4></li>
-<li>基本数据类型的特点：直接存储在栈(stack)中的数据</li>
-<li>引用数据类型的特点：存储的是该对象在栈中引用，真实的数据存放在堆内存里</li>
-<li>引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。<h5 id="深拷贝和浅拷贝是只针对Object和Array这样的引用数据类型的"><a href="#深拷贝和浅拷贝是只针对Object和Array这样的引用数据类型的" class="headerlink" title="深拷贝和浅拷贝是只针对Object和Array这样的引用数据类型的"></a>深拷贝和浅拷贝是只针对Object和Array这样的引用数据类型的</h5></li>
-<li>浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存<br>浅拷贝克隆的并不彻底，如果数组元素是基本类型，就会拷贝一份，互不影响，而如果是对象或者数组，就会只拷贝对象和数组的引用，这样我们无论在新旧数组进行了修改，两者都会发生变化。</li>
-<li>但深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。<h4 id="赋值和浅拷贝的区别"><a href="#赋值和浅拷贝的区别" class="headerlink" title="赋值和浅拷贝的区别"></a>赋值和浅拷贝的区别</h4></li>
-<li>当我们把一个对象赋值给一个新的变量时，赋的其实是该对象的在栈中的地址，而不是堆中的数据。也就是两个对象指向的是同一个存储空  间，无论哪个对象发生改变，其实都是改变的存储空间的内容，因此，两个对象是联动的。</li>
-<li>浅拷贝是按位拷贝对象，它会创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝。如果属性是基本类型，拷贝的就是基本类型的值；如果属性是内存地址（引用类型），拷贝的就是内存地址 ，因此如果其中一个对象改变了这个地址，就会影响到另一个对象。即默认拷贝构造函数只是对对象进行浅拷贝复制(逐个成员依次拷贝)，即只复制对象空间而不复制资源。</li>
-<li></li>
-</ul>
-</li>
-</ul>
-<h2 id="4-宏计算与微计算"><a href="#4-宏计算与微计算" class="headerlink" title="4.宏计算与微计算"></a>4.宏计算与微计算</h2><h2 id="5-call-apply-bind"><a href="#5-call-apply-bind" class="headerlink" title="5.call apply bind"></a>5.call apply bind</h2><h2 id="6-类与对象的区别"><a href="#6-类与对象的区别" class="headerlink" title="6.类与对象的区别"></a>6.类与对象的区别</h2><h2 id="7-闭包"><a href="#7-闭包" class="headerlink" title="7.闭包"></a>7.闭包</h2><h2 id="8-http与https"><a href="#8-http与https" class="headerlink" title="8.http与https"></a>8.http与https</h2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://bigdevil-xigua-91.github.io/2020/03/14/third/" data-id="ck7uh85rd0000ys9kdsxscfzy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-second" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-second" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/03/14/second/" class="article-date">
   <time datetime="2020-03-14T12:42:44.000Z" itemprop="datePublished">2020-03-14</time>
@@ -166,8 +79,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/14/second/">关于我</a>
+    <h1 class="article-title" itemprop="name">
+      关于我
     </h1>
   
 
@@ -185,53 +98,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-first" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/03/13/first/" class="article-date">
-  <time datetime="2020-03-13T12:42:44.000Z" itemprop="datePublished">2020-03-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2020/03/14/third/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          js你必须知道的事
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/13/first/">如何利用github+hexo创建自己的blog</a>
-    </h1>
   
+    <a href="/2020/03/13/first/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">如何利用github+hexo创建自己的blog</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="本地环境准备-安装node-git-git帐号-hexo-vscode"><a href="#本地环境准备-安装node-git-git帐号-hexo-vscode" class="headerlink" title="本地环境准备 安装node git git帐号,hexo,vscode"></a>本地环境准备 安装node git git帐号,hexo,vscode</h1><h2 id="1-网上下载mac版本的node包一键安装-或百度如何用brew安装-，网上下载vscode包一键安装"><a href="#1-网上下载mac版本的node包一键安装-或百度如何用brew安装-，网上下载vscode包一键安装" class="headerlink" title="1.网上下载mac版本的node包一键安装(或百度如何用brew安装)，网上下载vscode包一键安装"></a>1.网上下载mac版本的node包一键安装(或百度如何用brew安装)，网上下载vscode包一键安装</h2><h2 id="2-在github上注册一个自己的帐号"><a href="#2-在github上注册一个自己的帐号" class="headerlink" title="2.在github上注册一个自己的帐号"></a>2.在github上注册一个自己的帐号</h2><h2 id="3-安装git"><a href="#3-安装git" class="headerlink" title="3.安装git"></a>3.安装git</h2><h3 id="1）首先查看电脑是否安装Git，终端输入-git-如没有安装命令行输入-brew-install-git（如没有brew，百度如何安装"><a href="#1）首先查看电脑是否安装Git，终端输入-git-如没有安装命令行输入-brew-install-git（如没有brew，百度如何安装" class="headerlink" title="1）首先查看电脑是否安装Git，终端输入 git 如没有安装命令行输入 brew install git（如没有brew，百度如何安装"></a>1）首先查看电脑是否安装Git，终端输入 git 如没有安装命令行输入 brew install git（如没有brew，百度如何安装</h3><h3 id="2）查看是否设置过username和-email"><a href="#2）查看是否设置过username和-email" class="headerlink" title="2）查看是否设置过username和 email"></a>2）查看是否设置过username和 email</h3><p>   git config user.name<br>   git config user.email<br>   如没有设置进行设置<br>   git config –global user.name “username”<br>   git config –global user.email “email”</p>
-<h3 id="3-生成ssk"><a href="#3-生成ssk" class="headerlink" title="3)生成ssk"></a>3)生成ssk</h3><p>   i）ssh-keygen -t rsa -C “<a href="mailto:1050794513@qq.com">1050794513@qq.com</a>“回车根据提示操作<br>   ii）进入目录 cat .ssh/id_rsa.pub复制生成的ssk,登录GitHub（默认你已经注册了GitHub账号），添加ssh key，点击Settings-&gt;SSH and GPG keys -&gt;New SSH keytitle随便输入，在key中贴如你的ssh key<br>   iii)连接验证 ssh -T <a href="mailto:git@github.com">git@github.com</a> </p>
-<h2 id="4-在github上新建一个自己的仓库，仓库的名字命名为（username-github-io）username为github的用户名"><a href="#4-在github上新建一个自己的仓库，仓库的名字命名为（username-github-io）username为github的用户名" class="headerlink" title="4.在github上新建一个自己的仓库，仓库的名字命名为（username.github.io）username为github的用户名"></a>4.在github上新建一个自己的仓库，仓库的名字命名为（username.github.io）username为github的用户名</h2><p>   常见问题：github的用户名注意大小写，不然<a href="https://username.github.io会把username作为域名转成小写，用户名和https://username.github.io的username不一致，上述网址打开就不是默认的主页" target="_blank" rel="noopener">https://username.github.io会把username作为域名转成小写，用户名和https://username.github.io的username不一致，上述网址打开就不是默认的主页</a></p>
-<h2 id="5-安装hexo"><a href="#5-安装hexo" class="headerlink" title="5.安装hexo"></a>5.安装hexo</h2><p>  1)把npm源切到淘宝 npm config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a><br>  2）安装hexo  npm install -g hexo-cli<br>  3)进入一个本地目录 命令行输入 hexo init blog创建<br>  4)进入blogname  命令行输入 hexo s 本地启动成功用<a href="http://localhost:4000/打开查看" target="_blank" rel="noopener">http://localhost:4000/打开查看</a></p>
-<h2 id="6-github上部署"><a href="#6-github上部署" class="headerlink" title="6.github上部署"></a>6.github上部署</h2><p>  1）在blog的根目录下的_config.yml文件中可以修改theme: landscape（主题已经放置在themes目录下）<br>  2）在命令行中输入 npm install -g hexo-deployer-git –save<br>  3)在blog的根目录下的_config.yml文件中配置 deploy<br>   deploy:<br>  type: git<br>  repo: git工程地址（ttps://github.com/username/username.github.io.git）<br>  branch: master<br>  4) 命令行输入 hexo clean把打包文件夹清空<br>  5）命令行输入 hexo  deploy 部署到git远程<br>  6）<a href="https://username.github.io就可以查看了" target="_blank" rel="noopener">https://username.github.io就可以查看了</a></p>
-<p>  备注： <a href="https://hexo.io/zh-cn/docs/commands" target="_blank" rel="noopener">hexo官方文档</a><br>        <a href="https://www.runoob.com/markdown/md-link.html" target="_blank" rel="noopener">Markdown菜鸟教程</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://bigdevil-xigua-91.github.io/2020/03/13/first/" data-id="ck7uh85rj0001ys9k6pxye846" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
