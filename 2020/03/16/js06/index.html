@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="学习前端知识"><title>js-call apply bind | 西瓜田</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">js-call apply bind</h1><a id="logo" href="/.">西瓜田</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">js-call apply bind</h1><div class="post-meta">Mar 16, 2020</div><div class="post-content"><h2 id="call-apply-bind"><a href="#call-apply-bind" class="headerlink" title="call apply bind"></a>call apply bind</h2><ul>
+<li><p>call、apply、bind的作用是改变函数运行时this的指向（执行上下文）<br>函数存在「定义时上下文」，「运行时上下文」，「上下文是可以改变的」</p>
+</li>
+<li><p>obj.fun.call(obj1, arg1, arg2, …)<br>obj.fun.apply(obj1, [arg1, arg2], …)<br>obj.fun.bind(obj1, arg1,arg2)<br>在obj1中运行obj的 fun </p>
+</li>
+<li><p>call 、bind 、 apply 这三个函数的第一个参数都是 this 的指向对象</p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4></li>
+<li><p>call 的参数是直接放进去的，第二第三第 n 个参数全都用逗号分隔</p>
+</li>
+<li><p>apply 的所有参数都必须放在一个数组里面传进去 在传参的情况下，call的性能要高于apply，因为apply在执行时还要多一步解析数组</p>
+</li>
+<li><p>bind 除了返回是函数以外，它 的参数和 call 一样<br>bind()方法创建一个新的函数，在bind()被调用时，这个新函数的this被bind的第一个参数指定，其余的参数将作为新函数的参数供调用时使用<br>bind属于硬绑定，返回的 boundFunction 的 this 指向无法再次通过bind、apply或 call 修改；call与apply的绑定只适用当前调用，调用完就没了，下次要用还得再次绑</p>
+</li>
+<li><p>自己实现 call apply bind<br>this 绑定的优先级  箭头函数 &gt; new &gt; 显式 &gt; 隐式 &gt; 默认绑定</p>
+<h5 id="箭头函数的this"><a href="#箭头函数的this" class="headerlink" title="*箭头函数的this"></a>*箭头函数的this</h5><p>  箭头函数的this指向取决于外层作用域中的this，外层作用域或函数的this指向谁，<br>  箭头函数中的this便指向谁</p>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">   &#125;;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">let</span> obj1 = &#123;</span><br><span class="line">   name: <span class="string">'1'</span></span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="keyword">let</span> obj2 = &#123;</span><br><span class="line">   name: <span class="string">'2'</span></span><br><span class="line">  &#125;;</span><br><span class="line"> <span class="keyword">let</span> obj = fn.call(obj1); <span class="comment">// fn this指向obj1</span></span><br><span class="line"> obj.call(obj2); <span class="comment">//1</span></span><br><span class="line"> 箭头函数的<span class="keyword">this</span>取决于外层作用域的<span class="keyword">this</span>，fn函数执行时<span class="keyword">this</span>指向了obj1，</span><br><span class="line"> 所以箭头函数的<span class="keyword">this</span>也指向obj1。除此之外，箭头函数<span class="keyword">this</span>还有一个特性，</span><br><span class="line"> 那就是一旦箭头函数的<span class="keyword">this</span>绑定成功，也无法被再次修改.但是箭头函数的<span class="keyword">this</span></span><br><span class="line"> 就像作用域继承一样从上层作用域找，因此我们可以修改外层函数<span class="keyword">this</span>指向达到</span><br><span class="line"> 间接修改箭头函数<span class="keyword">this</span>的目的</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line"> &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> obj1 = &#123;</span><br><span class="line">  name: <span class="string">'1'</span></span><br><span class="line"> &#125;;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;</span><br><span class="line"> name: <span class="string">'2'</span></span><br><span class="line">&#125;;</span><br><span class="line">fn.call(obj1)(); <span class="comment">// fn this指向obj1,箭头函数this也指向obj1</span></span><br><span class="line">fn.call(obj2)(); <span class="comment">//fn this 指向obj2,箭头函数this也指向obj2</span></span><br></pre></td></tr></table></figure></code></pre><h5 id="new绑定"><a href="#new绑定" class="headerlink" title="*new绑定"></a>*new绑定</h5><p>  构造函数只是使用new 调用的普通函数，它并不是一个类，最终返回的对象也不是一个实例</p>
+<pre><code>1.以构造器的prototype属性为原型，创建新对象；
+2.将this(可以理解为上句创建的新对象)和调用参数传给构造器，执行；
+3.如果构造器没有手动返回对象，则返回第一步创建的对象
+这个过程我们称之为构造调用</code></pre>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.name = <span class="string">'111'</span>;</span><br><span class="line"> &#125;;</span><br><span class="line"> <span class="keyword">let</span> echo = <span class="keyword">new</span> Fn();</span><br><span class="line"> echo.name<span class="comment">//111</span></span><br><span class="line"> <span class="keyword">new</span> 创建一个空对象，将它的引用赋给 <span class="keyword">this</span>，继承函数的原型。</span><br><span class="line"> 通过 <span class="keyword">this</span> 将属性和方法添加至这个对象</span><br><span class="line">最后返回 <span class="keyword">this</span> 指向的新对象，也就是实例</span><br></pre></td></tr></table></figure>
+<h5 id="this显式绑定"><a href="#this显式绑定" class="headerlink" title=".this显式绑定"></a>.this显式绑定</h5><pre><code>显式绑定是指我们通过call、apply以及bind方法改变this的行为，
+相比隐式绑定，我们能清楚的感知 this 指向变化过程</code></pre><pre><code class="javascript">    <span class="keyword">let</span> obj1 = {
+     name: <span class="string">'1'</span>
+    };
+  <span class="keyword">let</span> obj2 = {
+    name: <span class="string">'2'</span>
+    };
+  <span class="keyword">let</span> obj3 = {
+   name: <span class="string">'3'</span>
+   }
+  <span class="keyword">var</span> name = <span class="string">'0'</span>;
+
+ <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>{
+   <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);
+ };
+fn(); <span class="comment">//0</span>
+fn.call(obj1); <span class="comment">//1</span>
+fn.apply(obj2); <span class="comment">//2</span>
+fn.bind(obj3)(); <span class="comment">//3</span>
+fn.call(<span class="literal">undefined</span>)<span class="comment">//0 如果在使用call之类的方法改变this指向时，</span>
+指向参数提供的是<span class="literal">null</span>或者<span class="literal">undefined</span>，那么 <span class="keyword">this</span> 将指向全局对象
+当我们调用一个函数时，我们习惯称之为函数调用，函数处于一个被动的状态；
+而call与apply让函数从被动变主动，函数能主动选择自己的上下文，所以这种
+写法我们又称之为函数应用</code></pre>
+<h5 id="this隐式绑定"><a href="#this隐式绑定" class="headerlink" title=".this隐式绑定"></a>.this隐式绑定</h5><pre><code>如果函数调用时，前面存在调用它的对象，那么this就会隐式绑定到这个对象上</code></pre><pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);
+ };
+<span class="keyword">let</span> obj = {
+   name: <span class="string">'2'</span>,
+   func: fn
+ };
+obj.func() <span class="comment">//2</span>
+如果函数调用前存在多个对象，<span class="keyword">this</span>指向距离调用自己最近的对象
+<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);
+ };
+<span class="keyword">let</span> obj = {
+   name: <span class="string">'1'</span>,
+   func: fn,
+ };
+<span class="keyword">let</span> obj1 = {
+  name: <span class="string">'2'</span>,
+  o: obj
+  };
+ obj1.o.func() <span class="comment">//1</span></code></pre>
+<h5 id="默认绑定"><a href="#默认绑定" class="headerlink" title=".默认绑定"></a>.默认绑定</h5><pre><code>函数调用时无任何调用前缀的情景
+默认绑定时this指向全局对象（非严格模式）</code></pre><pre><code class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>{
+   <span class="keyword">let</span> fn2 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+   <span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">//window</span>
+   fn3();
+   };
+   <span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">//window</span>
+   fn2();
+ };
+
+ <span class="function"><span class="keyword">function</span> <span class="title">fn3</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">//window</span>
+ };
+
+fn1();
+无论函数声明在哪，在哪调用，由于函数调用时前面并未指定任何对象，
+这种情况下<span class="keyword">this</span>指向全局对象<span class="built_in">window</span></code></pre>
+</li>
+<li><p>call,apply是属于显示绑定,那肯定不能用箭头函数和new来代替了,否则优先级就改变了,<br>那就只能用隐式绑定的方式了</p>
+<h6 id="1-实现-apply"><a href="#1-实现-apply" class="headerlink" title="1.实现 apply"></a>1.实现 apply</h6><pre><code class="javascript"> <span class="keyword">const</span> obj = {
+    name:<span class="string">'obj'</span>
+  };
+  <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params">a,b</span>)</span>{
+     <span class="built_in">console</span>.log(<span class="keyword">this</span>.name,a,b);
+ }
+ <span class="built_in">Function</span>.prototype.newApply = <span class="function"><span class="keyword">function</span> (<span class="params">that,arg</span>) </span>{
+    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>){
+     <span class="keyword">throw</span> <span class="keyword">this</span>+<span class="string">'is not a function'</span>
+ }
+that = that || <span class="built_in">window</span>; <span class="comment">//因为第一个参数如果不传就会绑定到window上面</span>
+arg = arg || [];
+that.myFn = <span class="keyword">this</span>;
+<span class="keyword">const</span> result = that.myFn(...arg); <span class="comment">//解构赋值把参数传进来,先把结果存起来</span>
+<span class="keyword">delete</span> that.myFn; <span class="comment">//再删除,否则就有副作用了</span>
+<span class="keyword">return</span> result;
+};
+ getName.newApply(obj,[<span class="number">1</span>,<span class="number">2</span>]); <span class="comment">// obj</span></code></pre>
+<h6 id="2-实现-call"><a href="#2-实现-call" class="headerlink" title="2.实现 call"></a>2.实现 call</h6><pre><code class="javascript"><span class="keyword">const</span> obj = {
+ name:<span class="string">'obj'</span>
+ };
+
+<span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params">a,b</span>)</span>{
+  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name,a,b);
+ }
+
+ <span class="built_in">Function</span>.prototype.newCall = <span class="function"><span class="keyword">function</span> (<span class="params">that, ...arg</span>) </span>{
+       <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>) {
+           <span class="keyword">throw</span> <span class="keyword">this</span> + <span class="string">'is not a function'</span>
+       }
+       that = that || <span class="built_in">window</span>; <span class="comment">//因为第一个参数如果不传就会绑定到window上面</span>
+       that.myFn = <span class="keyword">this</span>;
+       <span class="keyword">const</span> result = that.myFn(...arg); <span class="comment">//解构赋值把参数传进来,先把结果存起来</span>
+       <span class="keyword">delete</span> that.myFn; <span class="comment">//再删除,否则就有副作用了</span>
+       <span class="keyword">return</span> result;
+   };
+
+   getName.newApply(obj, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// obj 1 2</span></code></pre>
+<h6 id="3-bind-实现"><a href="#3-bind-实现" class="headerlink" title="3.bind 实现"></a>3.bind 实现</h6><pre><code class="javascript"><span class="keyword">const</span> obj = {
+   name:<span class="string">'obj'</span>
+ };
+ <span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>)</span>{
+   <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);
+  }
+
+  <span class="built_in">Function</span>.prototype.newBind = <span class="function"><span class="keyword">function</span> (<span class="params">that</span>) </span>{
+   <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span> !== <span class="string">'function'</span>) {
+       <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Error'</span>)
+   }
+   <span class="keyword">const</span> args = [...arguments].slice(<span class="number">1</span>);
+   <span class="keyword">const</span> fn = <span class="keyword">this</span>;
+   <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{
+       fn.apply(that)
+   };
+   <span class="comment">// 返回一个函数</span>
+   <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>{
+       <span class="comment">// 因为返回了一个函数,如果是new的话this就要指向新创建的对象了</span>
+       <span class="keyword">if</span> (<span class="keyword">this</span> <span class="keyword">instanceof</span> F) {
+           <span class="keyword">return</span> <span class="keyword">new</span> fn(...args, ...arguments)
+       }
+       <span class="keyword">return</span> fn.apply(that, args.concat(...arguments))
+   }
+ };
+
+ getName.newBind(obj)() <span class="comment">//obj</span>
+ 另一种实现方式
+ <span class="built_in">Function</span>.prototype._bind = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+ <span class="keyword">var</span> self = <span class="keyword">this</span>   <span class="comment">//原函数</span>
+ <span class="keyword">var</span> context = [].shift.call(<span class="built_in">arguments</span>)  <span class="comment">//this上下文</span>
+ <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>)  <span class="comment">//参数</span>
+ <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{
+    self.apply(context, args.concat([].slice.call(<span class="built_in">arguments</span>)))
+  }
+ }</code></pre>
+</li>
+</ul>
+</div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2020/03/22/js07/">js07</a><a class="next" href="/2020/03/15/js04/">js-深拷贝与浅拷贝和赋值</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://bigdevil-xigua-91.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/03/22/js07/">js07</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/16/js06/">js-call apply bind</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/js04/">js-深拷贝与浅拷贝和赋值</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/15/js05/">js-同步异步和微任务宏任务</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/14/js03/">js-this的理解</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/14/js02/">js-原型与原型链和构造函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/13/js01/">创建自己的blog</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://baifannn.gitee.io/blog/" title="免费赠送" target="_blank">免费赠送</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">西瓜田.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
